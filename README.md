@@ -1,55 +1,65 @@
-<<<<<<< HEAD
 # Getting Started with Python on Bluemix
 
-To get started, we'll take you through a sample Python Flask app, help you set up a development environment, deploy to Bluemix and add a Cloudant database.
+This is a simple demonstration on how to use the IBM Watson API to do image recognition and deploy on IBM Bluemix
 
-## Prerequisites
+This sample application is based on the IBM Bluemix Python getting started [repo](https://github.com/IBM-Bluemix/get-started-python). The essential contents of the README to help you with the deployment is reproduced from the get-started repository.
+
+A working demo is available at the following URL: [http://imgrecognition-dizzying-duecento.mybluemix.net/](http://imgrecognition-dizzying-duecento.mybluemix.net/)
+
+## Requirements
 
 You'll need the following:
+* [Python](https://www.python.org/download/releases/2.7/)
+* [Git](https://git-scm.com/downloads)
 * [Bluemix account](https://console.ng.bluemix.net/registration/)
 * [Cloud Foundry CLI](https://github.com/cloudfoundry/cli#downloads)
-* [Git](https://git-scm.com/downloads)
-* [Python](https://www.python.org/downloads/)
+* [Flask](http://flask.pocoo.org/)
+* [Bootstrap](http://getbootstrap.com/getting-started#download)
 
-## 1. Clone the sample app
 
-Now you're ready to start working with the app. Clone the repo and change to the directory where the sample app is located.
-  ```
-git clone https://github.com/IBM-Bluemix/get-started-python
-cd get-started-python
-  ```
-
-  Peruse the files in the *get-started-python* directory to familiarize yourself with the contents.
-
-## 2. Run the app locally
+## 1. Run the app locally
 
 Install the dependencies listed in the [requirements.txt ![External link icon](../../icons/launch-glyph.svg "External link icon")](https://pip.readthedocs.io/en/stable/user_guide/#requirements-files) file to be able to run the app locally.
 
 You can optionally use a [virtual environment ![External link icon](../../icons/launch-glyph.svg "External link icon")](https://packaging.python.org/installing/#creating-and-using-virtual-environments) to avoid having these dependencies clash with those of other Python projects or your operating system.
+
   ```
 pip install -r requirements.txt
   ```
+
+The requirements for this web application are 
+
+* Flask==0.12.2
+* cf-deployment-tracker==1.0.4
+* cloudant==2.4.0
+* watson_developer_cloud
+
+To call the Image Recognition service made available by the Watson API, the commands are as follows:
+ ```
+from watson_developer_cloud import VisualRecognitionV3 as vr
+x = vr(api_key=' key',version='version')
+img = x.classify(images_url='url')
+pprint.pprint(img)
+ ```
 
 Run the app.
   ```
 python hello.py
   ```
 
- View your app at: http://localhost:8000
+View your app at: http://localhost:8000
 
-## 3. Prepare the app for deployment
-
-To deploy to {{site.data.keyword.Bluemix_notm}}, it can be helpful to set up a manifest.yml file. One is provided for you with the sample. Take a moment to look at it.
+## 2. Prepare the app for deployment
 
 The manifest.yml includes basic information about your app, such as the name, how much memory to allocate for each instance and the route. In this manifest.yml **random-route: true** generates a random route for your app to prevent your route from colliding with others.  You can replace **random-route: true** with **host: myChosenHostName**, supplying a host name of your choice. [Learn more...](https://console.bluemix.net/docs/manageapps/depapps.html#appmanifest)
  ```
  applications:
- - name: GetStartedPython
+ - name: <application_name>
    random-route: true
    memory: 128M
  ```
 
-## 4. Deploy the app
+## 3. Deploy the app
 
 You can use the Cloud Foundry CLI to deploy apps.
 
@@ -85,58 +95,3 @@ When deployment completes you should see a message indicating that your app is r
 cf apps
   ```
   command to view your apps status and see the URL.
-
-## 5. Add a database
-
-Next, we'll add a NoSQL database to this application and set up the application so that it can run locally and on {{site.data.keyword.Bluemix_notm}}.
-
-1. Log in to {{site.data.keyword.Bluemix_notm}} in your Browser. Browse to the `Dashboard`. Select your application by clicking on its name in the `Name` column.
-2. Click on `Connections` then `Connect new`.
-2. In the `Data & Analytics` section, select `Cloudant NoSQL DB` and `Create` the service.
-3. Select `Restage` when prompted. {{site.data.keyword.Bluemix_notm}} will restart your application and provide the database credentials to your application using the `VCAP_SERVICES` environment variable. This environment variable is only available to the application when it is running on {{site.data.keyword.Bluemix_notm}}.
-
-Environment variables enable you to separate deployment settings from your source code. For example, instead of hardcoding a database password, you can store this in an environment variable which you reference in your source code. [Learn more...](/docs/manageapps/depapps.html#app_env)
-
-## 6. Use the database
-
-We're now going to update your local code to point to this database. We'll create a json file that will store the credentials for the services the application will use. This file will get used ONLY when the application is running locally. When running in {{site.data.keyword.Bluemix_notm}}, the credentials will be read from the VCAP_SERVICES environment variable.
-
-1. Create a file called `vcap-local.json` in the `get-started-python` directory with the following content:
-  ```
-  {
-    "services": {
-      "cloudantNoSQLDB": [
-        {
-          "credentials": {
-            "username":"CLOUDANT_DATABASE_USERNAME",
-            "password":"CLOUDANT_DATABASE_PASSWORD",
-            "host":"CLOUDANT_DATABASE_HOST"
-          },
-          "label": "cloudantNoSQLDB"
-        }
-      ]
-    }
-  }
-  ```
-
-2. Back in the {{site.data.keyword.Bluemix_notm}} UI, select your App -> Connections -> Cloudant -> View Credentials
-
-3. Copy and paste the `username`, `password`, and `host` from the credentials to the same fields of the `vcap-local.json` file replacing **CLOUDANT_DATABASE_USERNAME**, **CLOUDANT_DATABASE_PASSWORD**, and **CLOUDANT_DATABASE_URL**.
-
-4. Run your application locally.
-  ```
-python hello.py
-  ```
-
-  View your app at: http://localhost:8000. Any names you enter into the app will now get added to the database.
-
-5. Make any changes you want and re-deploy to {{site.data.keyword.Bluemix_notm}}!
-  ```
-cf push
-  ```
-
-  View your app at the URL listed in the output of the push command, for example, *myUrl.mybluemix.net*.
-=======
-# py-bluemix-watson-api
-This is a simple demonstration on how to use the IBM Watson API to do image recognition and deploy on IBM Bluemix
->>>>>>> 75411eb715c44cf50d649a6050c54874d95ef832
