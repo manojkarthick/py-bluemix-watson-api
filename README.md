@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Getting Started with Python on Bluemix
 
 To get started, we'll take you through a sample Python Flask app, help you set up a development environment, deploy to Bluemix and add a Cloudant database.
@@ -135,3 +136,7 @@ cf push
   ```
 
   View your app at the URL listed in the output of the push command, for example, *myUrl.mybluemix.net*.
+=======
+# py-bluemix-watson-api
+This is a simple demonstration on how to use the IBM Watson API to do image recognition and deploy on IBM Bluemix
+>>>>>>> 75411eb715c44cf50d649a6050c54874d95ef832

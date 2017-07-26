@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Logs
 logs
 *.log
@@ -5,6 +6,12 @@ logs
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
+=======
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+>>>>>>> 75411eb715c44cf50d649a6050c54874d95ef832
 
 # C extensions
 *.so
@@ -17,28 +24,42 @@ develop-eggs/
 dist/
 downloads/
 eggs/
+<<<<<<< HEAD
+=======
+.eggs/
+>>>>>>> 75411eb715c44cf50d649a6050c54874d95ef832
 lib/
 lib64/
 parts/
 sdist/
 var/
+<<<<<<< HEAD
+=======
+wheels/
+>>>>>>> 75411eb715c44cf50d649a6050c54874d95ef832
 *.egg-info/
 .installed.cfg
 *.egg
 
+<<<<<<< HEAD
 # python virtual environment/compiled files
 venv/
 *.pyc
 
+=======
+>>>>>>> 75411eb715c44cf50d649a6050c54874d95ef832
 # PyInstaller
 #  Usually these files are written by a python script from a template
 #  before PyInstaller builds the exe, so as to inject date/other infos into it.
 *.manifest
 *.spec
 
+<<<<<<< HEAD
 # Intellij/PyCharm config
 .idea/
 
+=======
+>>>>>>> 75411eb715c44cf50d649a6050c54874d95ef832
 # Installer logs
 pip-log.txt
 pip-delete-this-directory.txt
@@ -47,14 +68,24 @@ pip-delete-this-directory.txt
 htmlcov/
 .tox/
 .coverage
+<<<<<<< HEAD
 .cache
 nosetests.xml
 coverage.xml
+=======
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+>>>>>>> 75411eb715c44cf50d649a6050c54874d95ef832
 
 # Translations
 *.mo
 *.pot
 
+<<<<<<< HEAD
 # PyBuilder
 target/
 
@@ -62,3 +93,54 @@ target/
 *.DS_Store
 
 vcap-local.json
+=======
+# Django stuff:
+*.log
+local_settings.py
+
+# Flask stuff:
+instance/
+.webassets-cache
+
+# Scrapy stuff:
+.scrapy
+
+# Sphinx documentation
+docs/_build/
+
+# PyBuilder
+target/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# pyenv
+.python-version
+
+# celery beat schedule file
+celerybeat-schedule
+
+# SageMath parsed files
+*.sage.py
+
+# dotenv
+.env
+
+# virtualenv
+.venv
+venv/
+ENV/
+
+# Spyder project settings
+.spyderproject
+.spyproject
+
+# Rope project settings
+.ropeproject
+
+# mkdocs documentation
+/site
+
+# mypy
+.mypy_cache/
+>>>>>>> 75411eb715c44cf50d649a6050c54874d95ef832
