@@ -48,7 +48,7 @@ def home():
 @app.route("/results", methods=['POST'])
 def recognise_image():
     result_items = list()
-    x = vr(api_key='b62a5505da2232d3fc1e468b59a8608a893e00e4', version='2017-07-25')
+    x = vr(api_key='', version='2017-07-25')
     imgurl = request.form['imgurl']
     # print imgurl
     img = x.classify(images_url=imgurl)
