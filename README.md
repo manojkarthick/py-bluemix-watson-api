@@ -1,4 +1,4 @@
-# Getting Started with Python on Bluemix
+# Flask Application for Image recognition on IBM Bluemix
 
 This is a simple demonstration on how to use the IBM Watson API to do image recognition and deploy on IBM Bluemix
 
@@ -19,20 +19,20 @@ You'll need the following:
 
 ## 1. Run the app locally
 
-Install the dependencies listed in the [requirements.txt ![External link icon](../../icons/launch-glyph.svg "External link icon")](https://pip.readthedocs.io/en/stable/user_guide/#requirements-files) file to be able to run the app locally.
-
-You can optionally use a [virtual environment ![External link icon](../../icons/launch-glyph.svg "External link icon")](https://packaging.python.org/installing/#creating-and-using-virtual-environments) to avoid having these dependencies clash with those of other Python projects or your operating system.
-
-  ```
-pip install -r requirements.txt
-  ```
-
 The requirements for this web application are 
 
 * Flask==0.12.2
 * cf-deployment-tracker==1.0.4
 * cloudant==2.4.0
 * watson_developer_cloud
+
+Install the dependencies listed in the [requirements.txt](https://pip.readthedocs.io/en/stable/user_guide/#requirements-files) file to be able to run the app locally.
+
+You can optionally use a [virtual environment](https://packaging.python.org/installing/#creating-and-using-virtual-environments) to avoid having these dependencies clash with those of other Python projects or your operating system.
+
+  ```
+pip install -r requirements.txt
+  ```
 
 To call the Image Recognition service made available by the Watson API, the commands are as follows:
  ```
@@ -77,8 +77,7 @@ Replace the *API-endpoint* in the command with an API endpoint from the followin
 | https://api.eu-gb.bluemix.net  | United Kingdom |
 | https://api.au-syd.bluemix.net | Sydney         |
 
-Login to your {{site.data.keyword.Bluemix_notm}} account
-
+To login to your bluemix account use:
   ```
 cf login
   ```
