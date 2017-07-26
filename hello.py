@@ -1,5 +1,6 @@
 from cloudant import Cloudant
 from flask import Flask, render_template, request, jsonify
+from watson_developer_cloud import VisualRecognitionV3 as vr
 import atexit
 import cf_deployment_tracker
 import os
@@ -39,45 +40,33 @@ elif os.path.isfile('vcap-local.json'):
 # When running this app on the local machine, default the port to 8080
 port = int(os.getenv('PORT', 8080))
 
+
 @app.route('/')
 def home():
     return render_template('index.html')
 
-# /* Endpoint to greet and add a new visitor to database.
-# * Send a POST request to localhost:8080/api/visitors with body
-# * {
-# *     "name": "Bob"
-# * }
-# */
-@app.route('/api/visitors', methods=['GET'])
-def get_visitor():
-    if client:
-        return jsonify(list(map(lambda doc: doc['name'], db)))
+@app.route("/results", methods=['POST'])
+def recognise_image():
+    result_items = list()
+    x = vr(api_key='b62a5505da2232d3fc1e468b59a8608a893e00e4', version='2017-07-25')
+    imgurl = request.form['imgurl']
+    # print imgurl
+    img = x.classify(images_url=imgurl)
+    print img
+    classes = img['images'][0]['classifiers'][0]['classes']
+    custom_classes = img['custom_classes']
+    images_processed = img['images_processed']
+    if img['images'][0]['source_url']:
+        source_url = img['images'][0]['source_url']
     else:
-        print('No database')
-        return jsonify([])
-
-# /**
-#  * Endpoint to get a JSON array of all the visitors in the database
-#  * REST API example:
-#  * <code>
-#  * GET http://localhost:8080/api/visitors
-#  * </code>
-#  *
-#  * Response:
-#  * [ "Bob", "Jane" ]
-#  * @return An array of all the visitor names
-#  */
-@app.route('/api/visitors', methods=['POST'])
-def put_visitor():
-    user = request.json['name']
-    if client:
-        data = {'name':user}
-        db.create_document(data)
-        return 'Hello %s! I added you to the database.' % user
+        source_url = ''
+    if img['images'][0]['resolved_url']:
+        resolved_url = img['images'][0]['resolved_url']
     else:
-        print('No database')
-        return 'Hello %s!' % user
+        resolved_url = ''
+    complete_response = json.dumps(img, sort_keys = True, indent = 4, separators = (',', ': '))
+    return render_template('show_results.html', json_resp=classes, custom_classes=custom_classes, 
+        images_processed=images_processed, source_url=source_url, resolved_url=resolved_url, complete_response=complete_response)
 
 @atexit.register
 def shutdown():

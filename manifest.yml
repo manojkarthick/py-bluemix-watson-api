@@ -1,5 +1,5 @@
 ---
 applications:
- - name: CarRecognition
+ - name: ImgRecognition
    random-route: true
    memory: 128M
